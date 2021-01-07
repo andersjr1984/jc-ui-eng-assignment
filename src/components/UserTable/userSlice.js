@@ -28,8 +28,8 @@ export const { setUsers, setUsersPending } = userSlice.actions;
 export const fetchUsers = () => (dispatch) => {
   const url = `${baseApiUrl}/systemusers`;
   const response = axios.get(url);
-  response.then(({ data }) => {
-    dispatch(setUsers(data));
+  response.then(({ data: { results } }) => {
+    dispatch(setUsers(results));
     dispatch(setUsersPending(false));
   }).catch((error) => {
     // Todo: error handling? set snackbar message
