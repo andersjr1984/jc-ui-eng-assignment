@@ -53,6 +53,7 @@ export const addUser = data => dispatch => {
       return true;
     })
     .catch(error => {
+      // eslint-disable-next-line no-console
       console.error(error);
       dispatch(setUserDataPending(false));
       return false;
@@ -69,6 +70,7 @@ export const updateUser = (data, id) => dispatch => {
       return true;
     })
     .catch(error => {
+      // eslint-disable-next-line no-console
       console.error(error);
       dispatch(setUserDataPending(false));
       return false;
@@ -84,7 +86,7 @@ export const fetchIndividualUser = id => dispatch => {
       dispatch(setUserDataPending(false));
     })
     .catch(error => {
-      // Todo: error handling? set snackbar message
+      // eslint-disable-next-line no-console
       console.error(error);
     });
 };

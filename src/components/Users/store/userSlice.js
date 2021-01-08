@@ -35,7 +35,7 @@ export const fetchUsers = () => dispatch => {
       dispatch(setUsersPending(false));
     })
     .catch(error => {
-      // Todo: error handling? set snackbar message
+      // eslint-disable-next-line no-console
       console.error(error);
     });
 };
@@ -50,6 +50,7 @@ export const deleteUser = id => dispatch => {
       return true;
     })
     .catch(error => {
+      // eslint-disable-next-line no-console
       console.error(error);
       dispatch(setUsersPending(false));
       return false;
