@@ -1,35 +1,40 @@
 import React from 'react';
-import {
-  func,
-  string,
-} from 'prop-types';
-import {
-  Checkbox, TableCell, TableRow, TableSortLabel,
-} from '@material-ui/core';
+import { func, string } from 'prop-types';
+import { Checkbox, TableCell, TableRow, TableSortLabel } from '@material-ui/core';
 
-const TableHeader = ({
-  actionRow, checkboxRow, direction, onRequestSort, orderBy,
-}) => (
+const TableHeader = ({ actionRow, checkboxRow, direction, onRequestSort, orderBy }) => (
   <TableRow>
-    <TableCell variant="head" classes={{ root: checkboxRow }} padding="checkbox">
+    <TableCell classes={{ root: checkboxRow }} padding="checkbox" variant="head">
       <Checkbox disabled />
     </TableCell>
     <TableCell variant="head">
-      <TableSortLabel onClick={() => onRequestSort('lastName')} direction={direction} active={orderBy === 'lastName'}>
+      <TableSortLabel
+        active={orderBy === 'lastName'}
+        direction={direction}
+        onClick={() => onRequestSort('lastName')}
+      >
         Last, First
       </TableSortLabel>
     </TableCell>
     <TableCell variant="head">
-      <TableSortLabel onClick={() => onRequestSort('username')} direction={direction} active={orderBy === 'username'}>
+      <TableSortLabel
+        active={orderBy === 'username'}
+        direction={direction}
+        onClick={() => onRequestSort('username')}
+      >
         Username
       </TableSortLabel>
     </TableCell>
     <TableCell variant="head">
-      <TableSortLabel onClick={() => onRequestSort('email')} direction={direction} active={orderBy === 'email'}>
+      <TableSortLabel
+        active={orderBy === 'email'}
+        direction={direction}
+        onClick={() => onRequestSort('email')}
+      >
         Email
       </TableSortLabel>
     </TableCell>
-    <TableCell variant="head" colSpan="2" classes={{ root: actionRow }}>
+    <TableCell classes={{ root: actionRow }} colSpan="2" variant="head">
       Actions
     </TableCell>
   </TableRow>

@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {
-  arrayOf,
-  bool,
-  func,
-  shape,
-} from 'prop-types';
+import { arrayOf, bool, func, shape } from 'prop-types';
 import * as R from 'ramda';
-import { makeStyles, Table } from '@material-ui/core';
+import { makeStyles, Table, TableBody } from '@material-ui/core';
 import { LoadingRows, TableHeader, UserRows } from './TableComponents';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   actionRow: {
     width: theme.spacing(14),
   },
@@ -26,26 +21,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserTable = (props) => {
+const UserTable = props => {
   const [sortAsc, setSortAsc] = useState(true);
   const [orderBy, setOrderBy] = useState('lastName');
   const { actionRow, checkboxRow, tableRoot } = useStyles();
   const direction = sortAsc ? 'asc' : 'desc';
-  const {
-    fetchUsers,
-    users,
-    usersPending,
-  } = props;
+  const { fetchUsers, setDrawerOpen, setUserId, users, usersPending } = props;
 
-  const handleRequestSort = (value) => {
+  const handleRequestSort = value => {
     if (value === orderBy) return setSortAsc(R.not);
     return setOrderBy(value);
+  };
+
+  const handleEditUser = id => {
+    setDrawerOpen(true);
+    setUserId(id);
   };
 
   // Fetch Users on initial render
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   return (
     <Table classes={{ root: tableRoot }}>
@@ -56,7 +52,13 @@ const UserTable = (props) => {
         onRequestSort={handleRequestSort}
         orderBy={orderBy}
       />
-      {usersPending ? <LoadingRows /> : <UserRows checkboxRow={checkboxRow} users={users} />}
+      <TableBody>
+        {usersPending ? (
+          <LoadingRows />
+        ) : (
+          <UserRows checkboxRow={checkboxRow} onEditUser={handleEditUser} users={users} />
+        )}
+      </TableBody>
     </Table>
   );
 };
@@ -64,6 +66,8 @@ const UserTable = (props) => {
 UserTable.propTypes = {
   fetchUsers: func.isRequired,
   users: arrayOf(shape({})).isRequired,
+  setDrawerOpen: func.isRequired,
+  setUserId: func.isRequired,
   usersPending: bool.isRequired,
 };
 

@@ -1,10 +1,12 @@
 import React from 'react';
-import UserTable from './UserTable/UserTable';
+import UserTable from './UserTable';
+import UserDrawer from './UserDrawer';
 
 // add drawer, snackbar, and dialog here
 const User = () => (
   <>
     <UserTable />
+    <UserDrawer />
   </>
 );
 
