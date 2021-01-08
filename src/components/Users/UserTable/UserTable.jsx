@@ -21,6 +21,14 @@ const useStyles = makeStyles(theme => ({
       },
       overflowWrap: 'break-word',
     },
+    '& tbody tr:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.table,
+    },
+    '& th': {
+      fontWeight: 700,
+    },
+    backgroundColor: theme.palette.background.paper,
+    marginTop: theme.spacing(2),
     tableLayout: 'fixed',
     width: '100%',
   },
