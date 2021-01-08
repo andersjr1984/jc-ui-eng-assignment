@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { arrayOf, bool, func, shape } from 'prop-types';
-import { makeStyles, Table, TableBody, TableHead } from '@material-ui/core';
+import { makeStyles, Table, TableBody, TableHead, useMediaQuery } from '@material-ui/core';
 import { LoadingRows, TableHeader, UserRows } from './components';
 
 const useStyles = makeStyles(theme => ({
@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 const UserTable = props => {
   const { actionRow, checkboxRow, tableRoot } = useStyles();
   const { deleteUser, fetchUsers, setDrawerOpen, setUserId, users, usersPending } = props;
+  const smUp = useMediaQuery(theme => theme.breakpoints.up('sm'));
 
   const handleEditUser = id => {
     setDrawerOpen(true);
@@ -47,16 +48,17 @@ const UserTable = props => {
   return (
     <Table classes={{ root: tableRoot }}>
       <TableHead>
-        <TableHeader actionRow={actionRow} />
+        <TableHeader actionRow={actionRow} smUp={smUp} />
       </TableHead>
       <TableBody>
         {usersPending ? (
-          <LoadingRows />
+          <LoadingRows smUp={smUp} />
         ) : (
           <UserRows
             checkboxRow={checkboxRow}
             onDeleteUser={deleteUser}
             onEditUser={handleEditUser}
+            smUp={smUp}
             users={users}
           />
         )}
