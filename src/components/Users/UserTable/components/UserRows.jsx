@@ -28,7 +28,6 @@ const TableHeader = ({ checkboxRow, onDeleteUser, onEditUser, users }) =>
   ));
 
 TableHeader.propTypes = {
-  onChooseUser: func.isRequired,
   onDeleteUser: func.isRequired,
   onEditUser: func.isRequired,
   users: arrayOf(

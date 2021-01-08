@@ -2,7 +2,7 @@ import { TextField } from '@material-ui/core';
 import { func, shape, string } from 'prop-types';
 import React from 'react';
 import * as R from 'ramda';
-import { formOrder } from '../UserDrawer';
+import { formOrder } from '../../const';
 
 const Form = ({ formData, formStyle, onChange }) => (
   <form autoComplete="off" className={formStyle}>

@@ -24,7 +24,7 @@ const reducers = {
   setUserId: R.assoc('userId'),
 };
 
-export const userSlice = createSlice({
+export const drawerSlice = createSlice({
   name: 'drawer',
   initialState,
   reducers: R.map(singleReducer => R.flip(R.useWith(singleReducer, [R.prop('payload')])), reducers),
@@ -41,7 +41,7 @@ export const {
   setUserData,
   setUserDataPending,
   setUserId,
-} = userSlice.actions;
+} = drawerSlice.actions;
 
 export const addUser = data => dispatch => {
   dispatch(setUserDataPending(true));
@@ -89,4 +89,4 @@ export const fetchIndividualUser = id => dispatch => {
     });
 };
 
-export default userSlice.reducer;
+export default drawerSlice.reducer;

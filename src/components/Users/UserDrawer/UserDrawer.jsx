@@ -13,6 +13,7 @@ import * as R from 'ramda';
 
 import { Close } from '@material-ui/icons';
 import { Form } from './components';
+import { formOrder } from '../const';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,13 +32,6 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
 }));
-
-export const formOrder = [
-  { item: 'firstname', label: 'First Name' },
-  { item: 'lastname', label: 'Last Name' },
-  { item: 'username', label: 'Username' },
-  { item: 'email', label: 'E-Mail' },
-];
 
 const UserDrawer = props => {
   const {

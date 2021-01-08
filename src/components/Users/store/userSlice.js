@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import * as R from 'ramda';
 import http from '../../../utils/http';
+import { filterPredicate } from './filterSlice';
 
 const initialState = {
   users: [],
@@ -19,7 +20,8 @@ export const userSlice = createSlice({
   reducers: R.map(singleReducer => R.flip(R.useWith(singleReducer, [R.prop('payload')])), reducers),
 });
 
-export const getUsers = R.path(['user', 'users']);
+const getUnfilteredUsers = R.path(['user', 'users']);
+export const getUsers = createSelector(filterPredicate, getUnfilteredUsers, R.filter);
 export const getUsersPending = R.path(['user', 'usersPending']);
 
 export const { setUsers, setUsersPending } = userSlice.actions;

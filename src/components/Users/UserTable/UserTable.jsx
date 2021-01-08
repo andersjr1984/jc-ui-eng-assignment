@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { arrayOf, bool, func, shape } from 'prop-types';
-import * as R from 'ramda';
 import { makeStyles, Table, TableBody, TableHead } from '@material-ui/core';
 import { LoadingRows, TableHeader, UserRows } from './components';
 
 const useStyles = makeStyles(theme => ({
   actionRow: {
+    textAlign: 'center',
     width: theme.spacing(14),
   },
   tableRoot: {
@@ -31,16 +31,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UserTable = props => {
-  const [sortAsc, setSortAsc] = useState(true);
-  const [orderBy, setOrderBy] = useState('lastName');
   const { actionRow, checkboxRow, tableRoot } = useStyles();
-  const direction = sortAsc ? 'asc' : 'desc';
   const { deleteUser, fetchUsers, setDrawerOpen, setUserId, users, usersPending } = props;
-
-  const handleRequestSort = value => {
-    if (value === orderBy) return setSortAsc(R.not);
-    return setOrderBy(value);
-  };
 
   const handleEditUser = id => {
     setDrawerOpen(true);
@@ -55,13 +47,7 @@ const UserTable = props => {
   return (
     <Table classes={{ root: tableRoot }}>
       <TableHead>
-        <TableHeader
-          actionRow={actionRow}
-          checkboxRow={checkboxRow}
-          direction={direction}
-          onRequestSort={handleRequestSort}
-          orderBy={orderBy}
-        />
+        <TableHeader actionRow={actionRow} />
       </TableHead>
       <TableBody>
         {usersPending ? (

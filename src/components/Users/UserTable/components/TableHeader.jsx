@@ -1,37 +1,13 @@
 import React from 'react';
-import { func, string } from 'prop-types';
-import { TableCell, TableRow, TableSortLabel } from '@material-ui/core';
+import { string } from 'prop-types';
+import { TableCell, TableRow } from '@material-ui/core';
 
-const TableHeader = ({ actionRow, direction, onRequestSort, orderBy }) => (
+const TableHeader = ({ actionRow }) => (
   <TableRow>
-    <TableCell variant="head">
-      <TableSortLabel
-        active={orderBy === 'lastName'}
-        direction={direction}
-        onClick={() => onRequestSort('lastName')}
-      >
-        Last, First
-      </TableSortLabel>
-    </TableCell>
-    <TableCell variant="head">
-      <TableSortLabel
-        active={orderBy === 'username'}
-        direction={direction}
-        onClick={() => onRequestSort('username')}
-      >
-        Username
-      </TableSortLabel>
-    </TableCell>
-    <TableCell variant="head">
-      <TableSortLabel
-        active={orderBy === 'email'}
-        direction={direction}
-        onClick={() => onRequestSort('email')}
-      >
-        Email
-      </TableSortLabel>
-    </TableCell>
-    <TableCell classes={{ root: actionRow }} colSpan="2" variant="head">
+    <TableCell>Last, First</TableCell>
+    <TableCell>Username</TableCell>
+    <TableCell>Email</TableCell>
+    <TableCell classes={{ root: actionRow }} colSpan="2">
       Actions
     </TableCell>
   </TableRow>
@@ -39,9 +15,6 @@ const TableHeader = ({ actionRow, direction, onRequestSort, orderBy }) => (
 
 TableHeader.propTypes = {
   actionRow: string.isRequired,
-  direction: string.isRequired,
-  onRequestSort: func.isRequired,
-  orderBy: string.isRequired,
 };
 
 export default TableHeader;
