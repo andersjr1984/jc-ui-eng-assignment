@@ -17,7 +17,10 @@ import { formOrder } from '../const';
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    width: '300px',
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '300px',
+    },
   },
   formStyle: {
     '& >div': {
@@ -84,8 +87,8 @@ const UserDrawer = props => {
 
   return (
     <Drawer anchor="right" classes={{ paper }} onClose={handleClose} open={drawerOpen}>
-      <Box display="flex" height="40px" justifyContent="space-between" py={1}>
-        <Typography align="center" classes={{ root: headerText }} variant="h5">
+      <Box display="flex" height="40px" justifyContent="space-between" p={1}>
+        <Typography classes={{ root: headerText }} variant="h5">
           {isEdit ? 'Edit' : 'Create'} User
         </Typography>
         <IconButton onClick={handleClose}>
