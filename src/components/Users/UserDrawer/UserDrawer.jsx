@@ -36,6 +36,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const initialState = {
+  firstname: '',
+  lastname: '',
+  username: '',
+  email: '',
+};
+
 const UserDrawer = props => {
   const {
     addUser,
@@ -50,12 +57,7 @@ const UserDrawer = props => {
   } = props;
   const isEdit = !!userId;
   const { formStyle, headerText, paper } = useStyles();
-  const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    username: '',
-    email: '',
-  });
+  const [formData, setFormData] = useState(initialState);
   const pendingData = isEdit && userDataPending;
   const isNotUpdated = R.whereEq(formData, userData);
   const isNotValid = R.o(R.any(R.isEmpty), R.values)(formData);
@@ -68,6 +70,7 @@ const UserDrawer = props => {
     // just so the display doesn't change on fade out
     setTimeout(() => {
       resetDrawerData();
+      setFormData(initialState);
     }, 500);
   };
 

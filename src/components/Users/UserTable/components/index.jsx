@@ -2,3 +2,4 @@
 export { default as LoadingRows } from './LoadingRows';
 export { default as TableHeader } from './TableHeader';
 export { default as UserRows } from './UserRows';
+export { default as DeleteDialog } from './DeleteDialog';

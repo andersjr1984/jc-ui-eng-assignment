@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { arrayOf, bool, func, shape } from 'prop-types';
 import { makeStyles, Table, TableBody, TableHead, useMediaQuery } from '@material-ui/core';
-import { LoadingRows, TableHeader, UserRows } from './components';
+import { DeleteDialog, LoadingRows, TableHeader, UserRows } from './components';
 
 const useStyles = makeStyles(theme => ({
   actionRow: {
@@ -39,9 +39,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UserTable = props => {
+  const [deleteId, setDeleteId] = useState('');
   const { actionRow, checkboxRow, tableRoot } = useStyles();
   const { deleteUser, fetchUsers, setDrawerOpen, setUserId, users, usersPending } = props;
   const smUp = useMediaQuery(theme => theme.breakpoints.up('sm'));
+
+  const handleDelete = () => {
+    deleteUser(deleteId);
+    setDeleteId('');
+  };
 
   const handleEditUser = id => {
     setDrawerOpen(true);
@@ -54,24 +60,27 @@ const UserTable = props => {
   }, [fetchUsers]);
 
   return (
-    <Table classes={{ root: tableRoot }}>
-      <TableHead>
-        <TableHeader actionRow={actionRow} smUp={smUp} />
-      </TableHead>
-      <TableBody>
-        {usersPending ? (
-          <LoadingRows smUp={smUp} />
-        ) : (
-          <UserRows
-            checkboxRow={checkboxRow}
-            onDeleteUser={deleteUser}
-            onEditUser={handleEditUser}
-            smUp={smUp}
-            users={users}
-          />
-        )}
-      </TableBody>
-    </Table>
+    <>
+      <Table classes={{ root: tableRoot }}>
+        <TableHead>
+          <TableHeader actionRow={actionRow} smUp={smUp} />
+        </TableHead>
+        <TableBody>
+          {usersPending ? (
+            <LoadingRows smUp={smUp} />
+          ) : (
+            <UserRows
+              checkboxRow={checkboxRow}
+              onDeleteUser={setDeleteId}
+              onEditUser={handleEditUser}
+              smUp={smUp}
+              users={users}
+            />
+          )}
+        </TableBody>
+      </Table>
+      <DeleteDialog deleteId={deleteId} onClose={() => setDeleteId('')} onConfirm={handleDelete} />
+    </>
   );
 };
 
