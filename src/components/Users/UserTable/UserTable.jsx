@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { arrayOf, bool, func, shape } from 'prop-types';
 import * as R from 'ramda';
-import { makeStyles, Table, TableBody } from '@material-ui/core';
-import { LoadingRows, TableHeader, UserRows } from './TableComponents';
+import { makeStyles, Table, TableBody, TableHead } from '@material-ui/core';
+import { LoadingRows, TableHeader, UserRows } from './components';
 
 const useStyles = makeStyles(theme => ({
   actionRow: {
@@ -10,6 +10,15 @@ const useStyles = makeStyles(theme => ({
   },
   tableRoot: {
     '& td': {
+      '& button svg': {
+        fill: theme.palette.primary.main,
+      },
+      '& button.edit:hover svg': {
+        fill: theme.palette.secondary.main,
+      },
+      '& button.delete:hover svg': {
+        fill: theme.palette.error.main,
+      },
       overflowWrap: 'break-word',
     },
     tableLayout: 'fixed',
@@ -45,13 +54,15 @@ const UserTable = props => {
 
   return (
     <Table classes={{ root: tableRoot }}>
-      <TableHeader
-        actionRow={actionRow}
-        checkboxRow={checkboxRow}
-        direction={direction}
-        onRequestSort={handleRequestSort}
-        orderBy={orderBy}
-      />
+      <TableHead>
+        <TableHeader
+          actionRow={actionRow}
+          checkboxRow={checkboxRow}
+          direction={direction}
+          onRequestSort={handleRequestSort}
+          orderBy={orderBy}
+        />
+      </TableHead>
       <TableBody>
         {usersPending ? (
           <LoadingRows />

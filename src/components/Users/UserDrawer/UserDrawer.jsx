@@ -1,17 +1,68 @@
-import React, { useEffect } from 'react';
-import { bool, func, string } from 'prop-types';
-import { Drawer, makeStyles } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { bool, func, shape, string } from 'prop-types';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Drawer,
+  IconButton,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
+import * as R from 'ramda';
 
-const useStyles = makeStyles({
+import { Close } from '@material-ui/icons';
+import { Form } from './components';
+
+const useStyles = makeStyles(theme => ({
   paper: {
     width: '300px',
   },
-});
+  formStyle: {
+    '& >div': {
+      width: '100%',
+    },
+    height: '100%',
+    overflowY: 'auto',
+    padding: theme.spacing(0, 2),
+  },
+  headerText: {
+    margin: 'auto 0',
+    width: '100%',
+  },
+}));
+
+export const formOrder = [
+  { item: 'firstname', label: 'First Name' },
+  { item: 'lastname', label: 'Last Name' },
+  { item: 'username', label: 'Username' },
+  { item: 'email', label: 'E-Mail' },
+];
 
 const UserDrawer = props => {
-  const { fetchIndividualUser, resetDrawerData, setDrawerOpen, userId, drawerOpen } = props;
+  const {
+    fetchIndividualUser,
+    resetDrawerData,
+    setDrawerOpen,
+    userData,
+    userDataPending,
+    userId,
+    drawerOpen,
+  } = props;
   const isEdit = !!userId;
-  const { paper } = useStyles();
+  const { formStyle, headerText, paper } = useStyles();
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+  });
+  const pendingData = isEdit && userDataPending;
+  const isNotUpdated = R.whereEq(formData, userData);
+  const isNotValid = R.o(R.any(R.isEmpty), R.values)(formData);
+  const disableSubmit = isNotUpdated && isNotValid;
+
+  const handleChange = ({ value, name }) => setFormData(R.assoc(name, value));
 
   const handleClose = () => {
     setDrawerOpen(false);
@@ -26,15 +77,40 @@ const UserDrawer = props => {
     userId && fetchIndividualUser(userId);
   }, [fetchIndividualUser, userId]);
 
+  useEffect(() => {
+    setFormData(R.pick(R.pluck('item', formOrder), userData));
+  }, [userData]);
+
   return (
     <Drawer anchor="right" classes={{ paper }} onClose={handleClose} open={drawerOpen}>
-      {isEdit ? 'Edit' : 'Create'}
+      <Box display="flex" height="40px" justifyContent="space-between" py={1}>
+        <Typography align="center" classes={{ root: headerText }} variant="h5">
+          {isEdit ? 'Edit' : 'Create'} User
+        </Typography>
+        <IconButton onClick={handleClose}>
+          <Close />
+        </IconButton>
+      </Box>
+      {pendingData ? (
+        <Box alignItems="center" display="flex" height="100%" justifyContent="center">
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Form formData={formData} formStyle={formStyle} onChange={handleChange} />
+      )}
+      <Box display="flex" height="40px" justifyContent="center" py={1}>
+        <Button color="primary" disabled={disableSubmit} type="submit" variant="contained">
+          Submit
+        </Button>
+      </Box>
     </Drawer>
   );
 };
 
 UserDrawer.propTypes = {
   fetchIndividualUser: func.isRequired,
+  userData: shape({}).isRequired,
+  userDataPending: bool.isRequired,
   userId: string,
   drawerOpen: bool.isRequired,
   resetDrawerData: func.isRequired,

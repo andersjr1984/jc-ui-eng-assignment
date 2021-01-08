@@ -5,14 +5,21 @@ import http from '../../../utils/http';
 
 const initialState = {
   drawerOpen: false,
+  userData: {
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+  },
+  userDataPending: true,
   userId: '',
-  userData: {},
 };
 
 const reducers = {
   resetDrawerData: () => initialState,
   setDrawerOpen: R.assoc('drawerOpen'),
   setUserData: R.assoc('userData'),
+  setUserDataPending: R.assoc('userDataPending'),
   setUserId: R.assoc('userId'),
 };
 
@@ -25,16 +32,23 @@ export const userSlice = createSlice({
 export const getDrawerOpen = R.path(['drawer', 'drawerOpen']);
 export const getUserId = R.path(['drawer', 'userId']);
 export const getUserData = R.path(['drawer', 'userData']);
+export const getUserDataPending = R.path(['drawer', 'userDataPending']);
 
-export const { resetDrawerData, setDrawerOpen, setUserData, setUserId } = userSlice.actions;
+export const {
+  resetDrawerData,
+  setDrawerOpen,
+  setUserData,
+  setUserDataPending,
+  setUserId,
+} = userSlice.actions;
 
 export const fetchIndividualUser = id => dispatch => {
   const url = `systemusers/${id}`;
   const response = http.get(url);
   response
     .then(({ data }) => {
-      console.log(data);
       dispatch(setUserData(data));
+      dispatch(setUserDataPending(false));
     })
     .catch(error => {
       // Todo: error handling? set snackbar message

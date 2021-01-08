@@ -5,6 +5,8 @@ import UserDrawer from './UserDrawer';
 import {
   fetchIndividualUser,
   getDrawerOpen,
+  getUserData,
+  getUserDataPending,
   getUserId,
   resetDrawerData,
   setDrawerOpen,
@@ -13,6 +15,8 @@ import {
 const mapStateToProps = R.applySpec({
   userId: getUserId,
   drawerOpen: getDrawerOpen,
+  userData: getUserData,
+  userDataPending: getUserDataPending,
 });
 
 const mapDispatchToProps = {

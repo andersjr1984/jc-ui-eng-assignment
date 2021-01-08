@@ -15,14 +15,14 @@ const TableHeader = ({ checkboxRow, onChooseUser, onDeleteUser, onEditUser, user
       <TableCell>{email}</TableCell>
       <TableCell classes={{ root: checkboxRow }} padding="none">
         <Tooltip title="Edit">
-          <IconButton onClick={() => onEditUser(id)}>
+          <IconButton className="edit" onClick={() => onEditUser(id)}>
             <Edit />
           </IconButton>
         </Tooltip>
       </TableCell>
       <TableCell classes={{ root: checkboxRow }} padding="none">
         <Tooltip title="Delete">
-          <IconButton onClick={() => onDeleteUser(id)}>
+          <IconButton className="delete" onClick={() => onDeleteUser(id)}>
             <Delete />
           </IconButton>
         </Tooltip>
