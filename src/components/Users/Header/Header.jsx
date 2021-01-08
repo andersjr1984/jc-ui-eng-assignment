@@ -23,6 +23,7 @@ const filterOptions = [
   { value: 'None', label: 'None' },
   { value: 'email', label: 'E-Mail' },
   { value: 'id', label: 'ID' },
+  { value: 'username', label: 'Username' },
 ];
 
 const Header = ({ filterBy, filterTerm, setDrawerOpen, setFilterBy, setFilterTerm }) => {
