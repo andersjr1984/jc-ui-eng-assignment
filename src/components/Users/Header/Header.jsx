@@ -5,6 +5,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
   Typography,
 } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
@@ -38,9 +39,11 @@ const Header = ({ filterBy, filterTerm, setDrawerOpen, setFilterBy, setFilterTer
     <>
       <Box display="flex" justifyContent="space-between" width="100%">
         <Typography variant="h5">User List</Typography>
-        <IconButton onClick={() => setDrawerOpen(true)}>
-          <Add />
-        </IconButton>
+        <Tooltip title="Add User">
+          <IconButton onClick={() => setDrawerOpen(true)}>
+            <Add />
+          </IconButton>
+        </Tooltip>
       </Box>
       <Box display="flex" justifyContent="space-between" width="100%">
         <Select className={filterStyles} onChange={e => handleFilterByChange(e)} value={filterBy}>
