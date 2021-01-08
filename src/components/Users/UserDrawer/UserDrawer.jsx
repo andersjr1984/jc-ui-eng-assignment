@@ -41,6 +41,8 @@ export const formOrder = [
 
 const UserDrawer = props => {
   const {
+    addUser,
+    updateUser,
     fetchIndividualUser,
     resetDrawerData,
     setDrawerOpen,
@@ -60,7 +62,7 @@ const UserDrawer = props => {
   const pendingData = isEdit && userDataPending;
   const isNotUpdated = R.whereEq(formData, userData);
   const isNotValid = R.o(R.any(R.isEmpty), R.values)(formData);
-  const disableSubmit = isNotUpdated && isNotValid;
+  const disableSubmit = isNotUpdated || isNotValid;
 
   const handleChange = ({ value, name }) => setFormData(R.assoc(name, value));
 
@@ -70,6 +72,11 @@ const UserDrawer = props => {
     setTimeout(() => {
       resetDrawerData();
     }, 500);
+  };
+
+  const handleSubmit = async () => {
+    const submitSuccess = isEdit ? await updateUser(formData, userId) : await addUser(formData);
+    if (submitSuccess) handleClose();
   };
 
   // Fetch individual user when we have an id (not when creating)
@@ -99,7 +106,7 @@ const UserDrawer = props => {
         <Form formData={formData} formStyle={formStyle} onChange={handleChange} />
       )}
       <Box display="flex" height="40px" justifyContent="center" py={1}>
-        <Button color="primary" disabled={disableSubmit} type="submit" variant="contained">
+        <Button color="primary" disabled={disableSubmit} onClick={handleSubmit} variant="contained">
           Submit
         </Button>
       </Box>
@@ -108,6 +115,8 @@ const UserDrawer = props => {
 };
 
 UserDrawer.propTypes = {
+  addUser: func.isRequired,
+  updateUser: func.isRequired,
   fetchIndividualUser: func.isRequired,
   userData: shape({}).isRequired,
   userDataPending: bool.isRequired,

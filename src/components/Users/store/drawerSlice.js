@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as R from 'ramda';
 import http from '../../../utils/http';
+import { fetchUsers } from './userSlice';
 
 const initialState = {
   drawerOpen: false,
@@ -41,6 +42,38 @@ export const {
   setUserDataPending,
   setUserId,
 } = userSlice.actions;
+
+export const addUser = data => dispatch => {
+  dispatch(setUserDataPending(true));
+  const url = 'systemusers';
+  const response = http.post(url, data);
+  return response
+    .then(() => {
+      dispatch(fetchUsers());
+      return true;
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(setUserDataPending(false));
+      return false;
+    });
+};
+
+export const updateUser = (data, id) => dispatch => {
+  dispatch(setUserDataPending(true));
+  const url = `systemusers/${id}`;
+  const response = http.put(url, data);
+  return response
+    .then(() => {
+      dispatch(fetchUsers());
+      return true;
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(setUserDataPending(false));
+      return false;
+    });
+};
 
 export const fetchIndividualUser = id => dispatch => {
   const url = `systemusers/${id}`;

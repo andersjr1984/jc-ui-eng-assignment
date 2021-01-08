@@ -3,6 +3,7 @@ import * as R from 'ramda';
 
 import UserDrawer from './UserDrawer';
 import {
+  addUser,
   fetchIndividualUser,
   getDrawerOpen,
   getUserData,
@@ -10,6 +11,7 @@ import {
   getUserId,
   resetDrawerData,
   setDrawerOpen,
+  updateUser,
 } from '../store/drawerSlice';
 
 const mapStateToProps = R.applySpec({
@@ -20,6 +22,8 @@ const mapStateToProps = R.applySpec({
 });
 
 const mapDispatchToProps = {
+  addUser,
+  updateUser,
   fetchIndividualUser,
   resetDrawerData,
   setDrawerOpen,
