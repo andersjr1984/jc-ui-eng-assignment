@@ -5,22 +5,22 @@ import { Skeleton } from '@material-ui/lab';
 const LoadingRows = () => (
   <>
     <TableRow>
-      <TableCell colSpan={6}>
+      <TableCell colSpan={5}>
         <Skeleton />
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell colSpan={6}>
+      <TableCell colSpan={5}>
         <Skeleton />
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell colSpan={6}>
+      <TableCell colSpan={5}>
         <Skeleton />
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell colSpan={6}>
+      <TableCell colSpan={5}>
         <Skeleton />
       </TableCell>
     </TableRow>

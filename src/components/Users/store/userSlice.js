@@ -38,4 +38,20 @@ export const fetchUsers = () => dispatch => {
     });
 };
 
+export const deleteUser = id => dispatch => {
+  dispatch(setUsersPending(true));
+  const url = `systemusers/${id}`;
+  const response = http.delete(url);
+  return response
+    .then(() => {
+      dispatch(fetchUsers());
+      return true;
+    })
+    .catch(error => {
+      console.error(error);
+      dispatch(setUsersPending(false));
+      return false;
+    });
+};
+
 export default userSlice.reducer;

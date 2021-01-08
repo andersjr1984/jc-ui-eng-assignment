@@ -53,7 +53,7 @@ export const addUser = data => dispatch => {
       return true;
     })
     .catch(error => {
-      console.log(error);
+      console.error(error);
       dispatch(setUserDataPending(false));
       return false;
     });
@@ -69,7 +69,7 @@ export const updateUser = (data, id) => dispatch => {
       return true;
     })
     .catch(error => {
-      console.log(error);
+      console.error(error);
       dispatch(setUserDataPending(false));
       return false;
     });

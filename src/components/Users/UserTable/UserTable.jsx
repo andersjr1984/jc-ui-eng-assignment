@@ -35,7 +35,7 @@ const UserTable = props => {
   const [orderBy, setOrderBy] = useState('lastName');
   const { actionRow, checkboxRow, tableRoot } = useStyles();
   const direction = sortAsc ? 'asc' : 'desc';
-  const { fetchUsers, setDrawerOpen, setUserId, users, usersPending } = props;
+  const { deleteUser, fetchUsers, setDrawerOpen, setUserId, users, usersPending } = props;
 
   const handleRequestSort = value => {
     if (value === orderBy) return setSortAsc(R.not);
@@ -67,7 +67,12 @@ const UserTable = props => {
         {usersPending ? (
           <LoadingRows />
         ) : (
-          <UserRows checkboxRow={checkboxRow} onEditUser={handleEditUser} users={users} />
+          <UserRows
+            checkboxRow={checkboxRow}
+            onDeleteUser={deleteUser}
+            onEditUser={handleEditUser}
+            users={users}
+          />
         )}
       </TableBody>
     </Table>
@@ -75,6 +80,7 @@ const UserTable = props => {
 };
 
 UserTable.propTypes = {
+  deleteUser: func.isRequired,
   fetchUsers: func.isRequired,
   users: arrayOf(shape({})).isRequired,
   setDrawerOpen: func.isRequired,

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import * as R from 'ramda';
 
 import UserTable from './UserTable';
-import { fetchUsers, getUsers, getUsersPending } from '../store/userSlice';
+import { deleteUser, fetchUsers, getUsers, getUsersPending } from '../store/userSlice';
 import { setDrawerOpen, setUserId } from '../store/drawerSlice';
 
 const mapStateToProps = R.applySpec({
@@ -11,6 +11,7 @@ const mapStateToProps = R.applySpec({
 });
 
 const mapDispatchToProps = {
+  deleteUser,
   fetchUsers,
   setDrawerOpen,
   setUserId,

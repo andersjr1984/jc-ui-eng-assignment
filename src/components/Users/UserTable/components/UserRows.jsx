@@ -1,15 +1,12 @@
 import React from 'react';
 import { arrayOf, func, shape, string } from 'prop-types';
-import { Checkbox, IconButton, TableCell, TableRow, Tooltip } from '@material-ui/core';
+import { IconButton, TableCell, TableRow, Tooltip } from '@material-ui/core';
 
 import { Delete, Edit } from '@material-ui/icons';
 
-const TableHeader = ({ checkboxRow, onChooseUser, onDeleteUser, onEditUser, users }) =>
+const TableHeader = ({ checkboxRow, onDeleteUser, onEditUser, users }) =>
   users.map(({ email, firstname, id, lastname, username }) => (
     <TableRow key={id}>
-      <TableCell classes={{ root: checkboxRow }} padding="checkbox">
-        <Checkbox onClick={() => onChooseUser(id)} />
-      </TableCell>
       <TableCell>{`${lastname}, ${firstname}`}</TableCell>
       <TableCell>{username}</TableCell>
       <TableCell>{email}</TableCell>
