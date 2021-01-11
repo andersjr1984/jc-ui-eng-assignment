@@ -9,4 +9,5 @@ My favorite part is if there is a long list of users, you can filter them by eit
 Using react with npm, so just:
 
 ```npm i```
-```npm run```
+
+```npm start```
