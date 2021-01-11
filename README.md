@@ -5,3 +5,8 @@ I hope the UI is intiuitive. I would say this is my main weakness.
 There is a lot of fun functional programming stuff with ramda in there. Check out the reducers.
 
 My favorite part is if there is a long list of users, you can filter them by either email or a portion of their id number.
+
+Using react with npm, so just:
+
+```npm i```
+```npm run```
